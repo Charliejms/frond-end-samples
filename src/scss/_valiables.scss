@@ -1,0 +1,23 @@
+$main-font-family :'Roboto Slab', serif;
+$titles-font-family: $main-font-family;
+$body-font-family: $main-font-family;
+
+$font-size-base: 14px;
+$font-size-large: $font-size-base + 6px;
+$font-size-small: $font-size-base - 6px;
+$font-size-h1: $font-size-base + 15px;
+$font-size-h2: $font-size-base + 12px;
+$font-size-h3: $font-size-base + 9px;
+$font-size-h4: $font-size-base + 6px;
+$font-size-h5: $font-size-base + 3px;
+$font-size-h6: $font-size-base;
+
+//  Base colors
+$color-write: #fff;
+$color-black: #333;
+$color-blue-effort: #87FFED;
+$color-tobago: #68BCE2;
+$color-bg: #3CE2E8;
+//Components colors
+$main-text-color: $color-black;
+$body-background: $color-write;

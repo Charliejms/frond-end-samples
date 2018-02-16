@@ -1,6 +1,8 @@
-$mobile-text-color: red;
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+@import '../../node_modules/reset-css/_reset';
+@import "clearfix";
+@import "valiables";
+@import "html-tags";
+@import "web-header";
+@import "song-list";
 
-h1 {
-  color: $mobile-text-color;
-  background: aquamarine;
-}

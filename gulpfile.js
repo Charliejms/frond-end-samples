@@ -1,6 +1,8 @@
 var gulp = require('gulp');
 var sass = require('gulp-ruby-sass');
 const sourcemaps = require('gulp-sourcemaps');
+var notify = require('gulp-notify');
+var browserSync = require('browser-sync').create();
 
 // Run multiples task
 gulp.task('all', ['default']);
@@ -10,11 +12,16 @@ gulp.task('css-link', ['compile-sample'], function () {
 gulp.task('samples', ['task1'], function () {
 
 });
+var sassFiles ='src/scss/*.scss';
+var htmlFiles = '*.html';
 
-gulp.task('default', function () {
-    console.log('Hello friend.');
-    var sassFiles  ='./src/scss/*.scss';
+gulp.task('default', ['compile-scss'],function () {
+    //start Browser sync
+    browserSync.init({
+        server: './'
+    });
     gulp.watch(sassFiles, ['compile-scss']);
+    gulp.watch(htmlFiles).on('change', browserSync.reload)
 });
 // task SASS
 gulp.task('compile-scss', function () {
@@ -28,8 +35,9 @@ gulp.task('compile-scss', function () {
              sourceRoot: 'source'
         }))
         .pipe(gulp.dest('./dist/css/'))
-});
-
-gulp.task('concat-js', function () {
-
+        .pipe(notify({
+            title: 'SASS',
+            message:'Compiled 🤟🏽'
+        }))
+        .pipe(browserSync.stream())
 });

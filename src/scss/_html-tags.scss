@@ -1,0 +1,11 @@
+body {
+  background: $body-background;
+  color: $main-text-color;
+  font: $main-font-family;
+  font-size: $font-size-base;
+  padding-top: 70px;
+}
+
+img, embed, object, video {
+  max-width: 100%;
+}

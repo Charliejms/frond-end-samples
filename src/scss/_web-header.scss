@@ -1,0 +1,15 @@
+$web-header-background: $color-tobago;
+$web-header-color: $color-write;
+.web-header {
+  top: 0px; left: 0px;
+  width: 100%;
+  position: fixed;
+  padding: 20px 0px;
+  background: fade_out($web-header-background, 0.2);
+  color: $web-header-color;
+  text-align: center;
+  .web-title {
+    font-size: $font-size-base + 10px;
+    text-shadow: 2px 2px 0px darken($web-header-background, 30%);
+  }
+}

@@ -1,0 +1,18 @@
+.songs-list{
+  .song {
+    @extend .clearfix;
+    border-bottom: 1px solid $color-bg;
+    .cover{
+      width: 60px;
+      float: left;
+      margin-left: 10px;
+    }
+    .artist{
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .title{
+
+    }
+  }
+}
