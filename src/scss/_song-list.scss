@@ -1,18 +1,35 @@
 .songs-list{
+  @include if-is-table {
+    display: flex;
+    flex-wrap: wrap;
+  }
   .song {
     @extend .clearfix;
     border-bottom: 1px solid $color-bg;
+    @include if-is-table {
+      width: calc(25% - 20px);
+      padding: 10px;
+      text-align: center;
+    }
     .cover{
       width: 60px;
       float: left;
       margin-left: 10px;
+      @include if-is-table {
+        width: 100%;
+        margin-bottom: 10px;
+      }
     }
     .artist{
-      margin-top: 10px;
+      margin-top: 15px;
       font-weight: bold;
     }
-    .title{
-
+    .artist, .title{
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      height: 16px;
+      padding-right: 28px;
     }
   }
 }

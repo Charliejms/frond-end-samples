@@ -21,3 +21,7 @@ $color-bg: #3CE2E8;
 //Components colors
 $main-text-color: $color-black;
 $body-background: $color-write;
+
+//Responsive variables
+$table_width: 737px;
+$mobile-width: $table_width - 1;
