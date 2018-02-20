@@ -11,6 +11,20 @@
 <header class="web-header">
     <h1 class="web-title">Music</h1>
 </header>
+<form action="">
+    <label for="artist">Artist: </label>
+    <input type="text" name="artist" id="artist" placeholder="Artist" required>
+
+    <label for="title">Title: </label>
+    <input type="text" name="title" id="title" placeholder="Some title" required>
+
+    <label for="audio_url">Audio URL: </label>
+    <input type="url" name="audio_url" id="audio_url" placeholder="http://someurl.com" required>
+
+    <label for="cover_url"> Cover URL: </label>
+    <input type="url" name="cover_url" id="cover_url" placeholder="http://somecover.com">
+    <button>Save song</button>
+</form>
 <section class="songs-list">
     <article class="song">
         <img  class="cover" src="http://images.coveralia.com/audio/b/BSO_El_Arbol_De_La_Vida_(The_Tree_Of_Life)--CD.jpg">
