@@ -26,3 +26,14 @@ body {
     }
   }
 }
+
+// Sample implement states
+.loading {
+  background: #1d6f94;
+}
+.error {
+  background: #3CE2E8;
+}
+.not-found {
+  background: #333333;
+}
