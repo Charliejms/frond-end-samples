@@ -2,6 +2,7 @@ $web-header-background: $color-tobago;
 $web-header-color: $color-write;
 .web-header {
   top: 0px; left: 0px;
+  z-index: 99;
   width: 100%;
   position: fixed;
   padding: 20px 0px;

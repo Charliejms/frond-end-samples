@@ -1,0 +1,28 @@
+body {
+  // by default all elements UI are hidden
+  .ui-element{
+    display: none;
+  }
+  // show UI form
+  &.form-show {
+    .new-song-form {
+      display: flex;
+    }
+    @include if-is-table {
+      .songs-list {
+        display: flex;
+      }
+    }
+  }
+  // show UI song list
+  &.song-list-show {
+    .songs-list{
+      display: block;
+    }
+    @include if-is-table {
+      .songs-list {
+        display: flex;
+      }
+    }
+  }
+}

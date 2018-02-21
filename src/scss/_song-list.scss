@@ -14,7 +14,6 @@
     .cover{
       width: 60px;
       float: left;
-      margin-left: 10px;
       @include if-is-table {
         width: 100%;
         margin-bottom: 10px;
@@ -29,7 +28,7 @@
       text-overflow: ellipsis;
       overflow: hidden;
       height: 16px;
-      padding-right: 28px;
+      padding: 1px;
     }
   }
 }

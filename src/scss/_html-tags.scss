@@ -11,7 +11,28 @@ img, embed, object, video {
 }
 
 form {
+  top: 0px;
+  background: $color-write;
+  position: absolute;
+  width: calc(100% - 20px);
   padding: 10px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @include if-is-table {
+    height: auto;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    div {
+      width: calc(50% - 10px);
+      margin: auto 5px;
+    }
+    button {
+      width: 40%;
+    }
+  }
 }
 label, input, button {
   display: block;

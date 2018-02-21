@@ -7,28 +7,32 @@
     <link rel="stylesheet" type="text/css" href="dist/css/style.css">
     <title>Title</title>
 </head>
-<body>
+<body class="form-show">
 <header class="web-header">
     <h1 class="web-title">Music</h1>
 </header>
-<form action="">
-    <label for="artist">Artist: </label>
-    <input type="text" name="artist" id="artist" placeholder="Artist" required>
+<form action="" class="ui-element new-song-form">
+    <div><label for="artist">Artist: </label>
+        <input type="text" name="artist" id="artist" placeholder="Artist" required>
+    </div>
 
-    <label for="title">Title: </label>
-    <input type="text" name="title" id="title" placeholder="Some title" required>
+    <div><label for="title">Title: </label>
+        <input type="text" name="title" id="title" placeholder="Some title" required>
+    </div>
 
-    <label for="audio_url">Audio URL: </label>
-    <input type="url" name="audio_url" id="audio_url" placeholder="http://someurl.com" required>
+    <div><label for="audio_url">Audio URL: </label>
+        <input type="url" name="audio_url" id="audio_url" placeholder="http://someurl.com" required>
+    </div>
 
-    <label for="cover_url"> Cover URL: </label>
-    <input type="url" name="cover_url" id="cover_url" placeholder="http://somecover.com">
+    <div><label for="cover_url"> Cover URL: </label>
+        <input type="url" name="cover_url" id="cover_url" placeholder="http://somecover.com">
+    </div>
     <button>Save song</button>
 </form>
-<section class="songs-list">
+<section class="ui-element songs-list">
     <article class="song">
         <img  class="cover" src="http://images.coveralia.com/audio/b/BSO_El_Arbol_De_La_Vida_(The_Tree_Of_Life)--CD.jpg">
-        <div class="artist">Artist name Loren ipsum </div>
+        <div class="artist">1 Artist name Loren ipsum </div>
         <div class="title">Title</div>
     </article>
     <article class="song">
