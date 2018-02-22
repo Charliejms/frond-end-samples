@@ -3,25 +3,35 @@ var sass = require('gulp-ruby-sass');
 const sourcemaps = require('gulp-sourcemaps');
 var notify = require('gulp-notify');
 var browserSync = require('browser-sync').create();
+var concat = require('gulp-concat');
 
-// Run multiples task
-gulp.task('all', ['default']);
-// Run task before
-gulp.task('css-link', ['compile-sample'], function () {
-});
-gulp.task('samples', ['task1'], function () {
 
+var jsFiles = ['src/js/*.js', 'src/js/**/*.js'];
+var jsDestFiles ='dist/js/';
+//Task concat JavaScript
+gulp.task('concat-js', function () {
+    gulp.src(jsFiles)
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest(jsDestFiles))
+        .pipe(gulp.dest('./dist/css/'))
+        .pipe(notify({
+            title: 'Concat JS',
+            message:'Concatenated 🗣'
+        }))
+        .pipe(browserSync.stream())
 });
+
 var sassFiles ='src/scss/*.scss';
 var htmlFiles = '*.html';
 
-gulp.task('default', ['compile-scss'],function () {
+gulp.task('default', ['concat-js','compile-scss'],function () {
     //start Browser sync
     browserSync.init({
         server: './'
     });
     gulp.watch(sassFiles, ['compile-scss']);
-    gulp.watch(htmlFiles).on('change', browserSync.reload)
+    gulp.watch(htmlFiles).on('change', browserSync.reload);
+    gulp.watch(jsFiles, ['concat-js']);
 });
 // task SASS
 gulp.task('compile-scss', function () {
