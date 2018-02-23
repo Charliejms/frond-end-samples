@@ -4,16 +4,21 @@ const sourcemaps = require('gulp-sourcemaps');
 var notify = require('gulp-notify');
 var browserSync = require('browser-sync').create();
 var concat = require('gulp-concat');
+var browserify = require('browserify');
+var tap = require('gulp-tap');
+var buffer = require('gulp-buffer');
 
 
 var jsFiles = ['src/js/*.js', 'src/js/**/*.js'];
 var jsDestFiles ='dist/js/';
 //Task concat JavaScript
 gulp.task('concat-js', function () {
-    gulp.src(jsFiles)
-        .pipe(concat('app.js'))
+    gulp.src('src/js/app.js')
+        .pipe(tap(function (file) { // allow ren code got each  selected file before file
+            file.contents = browserify(file.path).bundle(); // pass file to import the require elemen ts
+        }))
+        .pipe(buffer())// transform file in stream
         .pipe(gulp.dest(jsDestFiles))
-        .pipe(gulp.dest('./dist/css/'))
         .pipe(notify({
             title: 'Concat JS',
             message:'Concatenated 🗣'
