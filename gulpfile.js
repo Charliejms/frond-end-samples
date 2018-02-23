@@ -3,7 +3,6 @@ var sass = require('gulp-ruby-sass');
 const sourcemaps = require('gulp-sourcemaps');
 var notify = require('gulp-notify');
 var browserSync = require('browser-sync').create();
-var concat = require('gulp-concat');
 var browserify = require('browserify');
 var tap = require('gulp-tap');
 var buffer = require('gulp-buffer');
