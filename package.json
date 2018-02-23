@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "jquery": "^3.3.1",
-    "reset-css": "^2.2.1"
+    "reset-css": "^2.2.1",
+    "sassy-font-awesome": "^1.0.1"
   },
   "devDependencies": {
     "browser-sync": "^2.23.6",

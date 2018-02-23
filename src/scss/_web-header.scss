@@ -13,4 +13,13 @@ $web-header-color: $color-write;
     font-size: $font-size-base + 10px;
     text-shadow: 2px 2px 0px darken($web-header-background, 30%);
   }
+  .add-song{
+    @include _fa-icon(plus-square-o);
+    color: $color-write;
+    font-size: x-large;
+    float: right;
+    display: inline;
+    position: relative;
+    padding-right: 70px;
+  }
 }

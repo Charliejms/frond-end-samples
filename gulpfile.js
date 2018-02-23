@@ -24,7 +24,7 @@ gulp.task('concat-js', function () {
 var sassFiles ='src/scss/*.scss';
 var htmlFiles = '*.html';
 
-gulp.task('default', ['concat-js','compile-scss'],function () {
+gulp.task('default', ['concat-js','compile-scss', 'copy-font'],function () {
     //start Browser sync
     browserSync.init({
         server: './'
@@ -50,4 +50,9 @@ gulp.task('compile-scss', function () {
             message:'Compiled 🤟🏽'
         }))
         .pipe(browserSync.stream())
+});
+// Import Font Awesome
+gulp.task('copy-font', function () {
+    gulp.src('node_modules/sassy-font-awesome/fonts/fontawesome-webfont.*')
+        .pipe(gulp.dest('./dist/fonts/'))
 });
