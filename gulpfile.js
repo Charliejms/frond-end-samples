@@ -10,7 +10,8 @@ var jsonServer = require("gulp-json-srv");
 
 
  var serverJson = jsonServer.create({
-     port: 3004
+     port: 3004,
+     baseUrl: '/api'
  });
 
 var jsFiles = ['src/js/*.js', 'src/js/**/*.js'];
