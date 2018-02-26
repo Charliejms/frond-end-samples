@@ -6,7 +6,12 @@ var browserSync = require('browser-sync').create();
 var browserify = require('browserify');
 var tap = require('gulp-tap');
 var buffer = require('gulp-buffer');
+var jsonServer = require("gulp-json-srv");
 
+
+ var serverJson = jsonServer.create({
+     port: 3004
+ });
 
 var jsFiles = ['src/js/*.js', 'src/js/**/*.js'];
 var jsDestFiles ='dist/js/';
@@ -31,11 +36,14 @@ var htmlFiles = '*.html';
 gulp.task('default', ['concat-js','compile-scss', 'copy-font'],function () {
     //start Browser sync
     browserSync.init({
-        server: './'
+        server: './',
+        //proxy: "127.0.0.1:3004",
+        browser: "google chrome"
     });
     gulp.watch(sassFiles, ['compile-scss']);
     gulp.watch(htmlFiles).on('change', browserSync.reload);
     gulp.watch(jsFiles, ['concat-js']);
+    return gulp.src('db.json').pipe(serverJson.pipe());
 });
 // task SASS
 gulp.task('compile-scss', function () {
