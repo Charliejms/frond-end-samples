@@ -1,6 +1,6 @@
 const $ = require('jquery');
 
-$('.new-song-form button').on('click', function () {
+$('.new-song-form').on('submit', function () {
 
     let inputs = $('.new-song-form input');
     for (let i = 0;  i<inputs.length; i++){
