@@ -5,6 +5,9 @@ body {
   }
   // show UI form
   &.form-show {
+    .add-song {
+      transform: rotate(45deg);
+    }
     .new-song-form {
       display: flex;
     }

@@ -2,8 +2,10 @@
   "songs": [
     {
       "id": 1,
-      "title": "hello",
-      "artist": "Hello artist"
+      "artist": "Lil Pump",
+      "title": "Gucci Gang",
+      "audio_url": "https://youtu.be/4LfJnj66HVQ",
+      "cover_url": "https://images.genius.com/c8e73069b83572d7456a8ea846f47bcf.667x667x1.jpg"
     }
   ]
 }

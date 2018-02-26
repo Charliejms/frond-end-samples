@@ -7,6 +7,7 @@ var browserify = require('browserify');
 var tap = require('gulp-tap');
 var buffer = require('gulp-buffer');
 var jsonServer = require("gulp-json-srv");
+var babel = require('gulp-babel');
 
 
  var serverJson = jsonServer.create({
@@ -19,6 +20,7 @@ var jsDestFiles ='dist/js/';
 //Task concat JavaScript
 gulp.task('concat-js', function () {
     gulp.src('src/js/app.js')
+        .pipe(babel()) // transpile js
         .pipe(tap(function (file) { // allow ren code got each  selected file before file
             file.contents = browserify(file.path).bundle(); // pass file to import the require elemen ts
         }))

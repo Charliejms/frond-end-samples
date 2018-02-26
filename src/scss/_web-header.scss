@@ -14,12 +14,12 @@ $web-header-color: $color-write;
     text-shadow: 2px 2px 0px darken($web-header-background, 30%);
   }
   .add-song{
-    @include _fa-icon(plus-square-o);
+    @include _fa-icon(plus-circle);
     color: $color-write;
     font-size: x-large;
     float: right;
-    display: inline;
-    position: relative;
-    padding-right: 70px;
+    margin-right: 15px;
+    cursor: pointer;
+    transition: transform 0.25s;
   }
 }
