@@ -22,6 +22,10 @@ $('.new-song-form button').on('click', function () {
         url: "http://localhost:3004/api/songs/",
         method: "post",
         data: song,
+        beforeSend: function () {
+            $(inputs).attr("disable", true); // disable inputs
+            $('.new-song-form button').text('Saving song...').attr('disable', true) // disable button
+        },
         success: function (response) {
             console.log("SUCCESS", response);
             $('form')[0].reset(); //clean fields form
@@ -29,6 +33,10 @@ $('.new-song-form button').on('click', function () {
         },
         error: function () {
             console.log("ERROR", arguments)
+        },
+        complete: function () {
+            $(inputs).attr("disable", false); // disable inputs
+            $('.new-song-form button').text('Save song').attr('disable', false)
         }
 
     });
