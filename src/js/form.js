@@ -1,4 +1,5 @@
 const $ = require('jquery');
+let songsList = require('./songs-list');
 
 $('.new-song-form').on('submit', function () {
 
@@ -30,6 +31,7 @@ $('.new-song-form').on('submit', function () {
             console.log("SUCCESS", response);
             $('form')[0].reset(); //clean fields form
             $("#artist").focus(); // show focus at artist textfield
+            songsList.load();
         },
         error: function () {
             console.log("ERROR", arguments)
