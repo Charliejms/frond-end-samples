@@ -1,4 +1,5 @@
 let $ = require('jquery');
+let utils = require('./utils');
 // show list songs
 $.ajax({
     url: "http://localhost:3004/api/songs",
@@ -8,8 +9,8 @@ $.ajax({
             let html =`    
                         <article class="song">
                             <img  class="cover" src="${song.cover_url}">
-                            <div class="artist">${song.artist}</div>
-                            <div class="title">${song.title}</div>
+                            <div class="artist">${utils.scapeHTML(song.artist)}</div>
+                            <div class="title">${utils.scapeHTML(song.title)}</div>
                         </article>`;
 
             $('.songs-list').append(html);
