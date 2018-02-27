@@ -30,5 +30,20 @@
       height: 16px;
       padding: 1px;
     }
+    .favourite-song {
+      @include _fa-icon(heart-o);
+      font-size: medium;
+      color: $color-tobago;
+      float: right;
+      margin: 20px 10px 0 0;
+      @include if-is-table{
+        margin: 0;
+        margin-right: 5px;
+      }
+    }
+    .unfavourite-song {
+      @extend .favourite-song;
+      @include _fa-icon(heart);
+    }
   }
 }
