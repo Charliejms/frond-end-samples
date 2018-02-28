@@ -1,3 +1,3 @@
-let songsList = require('./songs-list');
+let songsListManager = require('./songs-list-manager');
 
-songsList.load();
+songsListManager.load();

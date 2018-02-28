@@ -5,7 +5,6 @@
   }
   .song {
     @extend .clearfix;
-    border-bottom: 1px solid $color-bg;
     @include if-is-table {
       width: calc(25% - 20px);
       padding: 10px;
@@ -36,14 +35,19 @@
       color: $color-tobago;
       float: right;
       margin: 20px 10px 0 0;
+      cursor: pointer;
       @include if-is-table{
-        margin: 0;
+        margin:0;
         margin-right: 5px;
       }
     }
     .unfavourite-song {
       @extend .favourite-song;
       @include _fa-icon(heart);
+    }
+    .delete-song {
+      @extend .favourite-song;
+      @include _fa-icon(trash)
     }
   }
 }

@@ -26,7 +26,7 @@ module.exports = {
                     let html =`    
                         <article class="song">
                             <img  class="cover" src="${cover_url}">
-                            <i class="favourite-song" title="like song"></i>
+                            <i class="delete-song" title="like song"></i>
                             <div class="artist">${utils.scapeHTML(artist)}</div>
                             <div class="title">${utils.scapeHTML(title)}</div>
                         </article>`;
