@@ -54,5 +54,8 @@ module.exports = {
                 console.log('Error delete song', response)
             }
         });
+    },
+    create: function (song) {
+
     }
 };
