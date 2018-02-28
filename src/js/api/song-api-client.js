@@ -20,7 +20,7 @@ module.exports = {
             error: errorCallback,
         });
     },
-    list: function (songId, successCallback, errorCallback) {
+    list: function (successCallback, errorCallback) {
         $.ajax({
             url: `${baseUrl}/songs`,
             method: "get",

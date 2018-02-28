@@ -1,11 +1,16 @@
 let $ = require('jquery');
-let songsListManager = require('./songs-list-manager');
+let apiClientSong = require('./api/song-api-client');
 
 $('.songs-list').on('click', '.delete-song', function () {
-    console.log('Delete song.!');
-    let songId = $(this).parent().data('id');
-    console.log('Delete song id = ', songId);
+    let self = $(this);
+    let songId = self.parent().data('id');
     //TODO: implement load to delete song
-    $(this).hide();
-    songsListManager.delete(songId);
+    self.hide();
+    console.log('this',this);
+    //songsListManager.delete(songId);
+    apiClientSong.delete(songId,function () {
+        self.parent().remove();
+    }, function (response) {
+        alert('Error while deleting the song.')
+    })
 });
