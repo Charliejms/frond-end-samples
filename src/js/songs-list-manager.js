@@ -14,6 +14,7 @@ module.exports = {
             success : function (response) {
                 $('.songs-list').html(''); //clean songs list
                 response.map(song => {
+                    let song_id = song.id || "";
                     let artist = song.artist || "";
                     let title = song.title || "";
                     let cover_url = song.cover_url || "";
@@ -24,7 +25,7 @@ module.exports = {
                     }
 
                     let html =`    
-                        <article class="song">
+                        <article class="song" data-id="${song_id}">
                             <img  class="cover" src="${cover_url}">
                             <i class="delete-song" title="like song"></i>
                             <div class="artist">${utils.scapeHTML(artist)}</div>
