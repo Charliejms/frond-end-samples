@@ -40,5 +40,19 @@ module.exports = {
                 console.log('error: ',response )
             }
         });
+    },
+    delete: function (songId) {
+        let self = this;
+        $.ajax({
+            url: `http://localhost:3004/api/songs/${songId}`,
+            method: "delete",
+            success : function () {
+                console.log('Song deleted!');
+                self.load();
+            },
+            error: function (response) {
+                console.log('Error delete song', response)
+            }
+        });
     }
 };
