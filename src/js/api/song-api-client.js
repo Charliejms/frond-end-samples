@@ -12,18 +12,34 @@ module.exports = {
             error: errorCallback,
         });
     },
-    delete: function (songId, successCallback, errorCallback) {
-        $.ajax({
-            url: `${baseUrl}/songs/${songId}`,
-            method: "delete",
-            success: successCallback,
-            error: errorCallback,
-        });
-    },
     list: function (successCallback, errorCallback) {
         $.ajax({
             url: `${baseUrl}/songs`,
             method: "get",
+            success: successCallback,
+            error: errorCallback,
+        });
+    },
+    detail: function (songId, successCallback, errorCallback) {
+        $.ajax({
+            url: `${baseUrl}/songs/${songId}`,
+            method: 'get',
+            success: successCallback,
+            error: errorCallback
+        });
+    },
+    update: function (song, songId, successCallback, errorCallback) {
+        $.ajax({
+            url: `${baseUrl}/songs/${songId}`,
+            method: 'put',
+            success: successCallback,
+            error: errorCallback
+        });
+    },
+    delete: function (songId, successCallback, errorCallback) {
+        $.ajax({
+            url: `${baseUrl}/songs/${songId}`,
+            method: "delete",
             success: successCallback,
             error: errorCallback,
         });
