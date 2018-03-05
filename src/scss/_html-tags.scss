@@ -68,3 +68,15 @@ button {
     color: $color-write;
   }
 }
+
+.drop-zone {
+  @extend input;
+  background-color: lighten($color-tobago, 15%);
+  text-align: center;
+  transition: all 0.25s;
+  font-size: small;
+  &.drop-here{
+    background-color: darken($color-tobago, 30%);
+    color: $color-write;
+  }
+}

@@ -64,3 +64,32 @@ $('input[type="file"]').on('change', function () {
     };
     reader.readAsDataURL(this.files[0])
 });
+
+//disable behavior by default open file in browser
+$('body').on('drop dragover', function () {
+    event.preventDefault();
+    return false;
+
+});
+
+let drop_zone = $('.drop-zone');
+//management event drag and drop
+drop_zone.on('dragover dragleave', function (event) {
+    event.preventDefault();
+    let self = $(this);
+    if (event.type ==='dragover'){
+        self.addClass('drop-here');
+    }else {
+        self.removeClass('drop-here');
+    }
+});
+
+drop_zone.on('drop', function (event) {
+    let files = event.originalEvent.dataTransfer.files;
+    if (files.length > 0){
+        console.log('file selected: ', files[0])
+
+    }
+    event.preventDefault();
+    return false;
+});
