@@ -118,3 +118,5 @@ typings/
 
 # Personal Dist
 dist/
+uploads/
+db/

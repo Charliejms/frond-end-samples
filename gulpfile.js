@@ -8,7 +8,11 @@ var tap = require('gulp-tap');
 var buffer = require('gulp-buffer');
 var jsonServer = require("gulp-json-srv");
 var babel = require('gulp-babel');
+let run = require('gulp-run');
 
+gulp.task('run-server-python', function () {
+
+});
 
  var serverJson = jsonServer.create({
      port: 3004,
@@ -39,14 +43,15 @@ var htmlFiles = '*.html';
 gulp.task('default', ['concat-js','compile-scss', 'copy-font'],function () {
     //start Browser sync
     browserSync.init({
-        server: './',
-        //proxy: "127.0.0.1:3004",
+        //server: './',
+        proxy: "127.0.0.1:8000",
         browser: "google chrome"
     });
     gulp.watch(sassFiles, ['compile-scss']);
     gulp.watch(htmlFiles).on('change', browserSync.reload);
     gulp.watch(jsFiles, ['concat-js']);
-    return gulp.src('db.json').pipe(serverJson.pipe());
+    run('python server.py').exec();
+    //return gulp.src('db.json').pipe(serverJson.pipe());
 });
 // task SASS
 gulp.task('compile-scss', function () {
