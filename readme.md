@@ -8,6 +8,6 @@ using **GULP**
 A REST sparring to learn and test front-end technologies by making HTTP requests.
 SparREST works as a SimpleHTTPServer serving your static files in the working directory, and it also works as an API Rest that stores any data you send to it just by using /api/<resource> at the begining of your URL.
 
- ## `SparREST` 
+ ### `SparREST` 
  - [more info SparREST](https://github.com/kasappeal/sparrest)
 
