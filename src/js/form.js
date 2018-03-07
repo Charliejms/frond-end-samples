@@ -22,17 +22,18 @@ $('.new-song-form').on('submit', function () {
             return false;
         }
     }
-    let audio_file_input = $('#audio_file');
+    let audio_file_input = $('#audio_file')[0];
     let audio_file = null;
-    if(audio_file_input[0].files.length > 0){
-        audio_file = audio_file_input[0].files[0];
+    console.log(audio_file_input);
+    if(audio_file_input.files.length > 0){
+        audio_file = audio_file_input.files[0];
         console.log(audio_file);
 
     }
-    let cover_file_input = $('#cover_file');
+    let cover_file_input = $('#cover_file')[0];
     let cover_file = null;
-    if (cover_file_input[0].files.length > 0){
-        cover_file = cover_file_input[0].files[0];
+    if (cover_file_input.files.length > 0){
+        cover_file = cover_file_input.files[0];
     }
 
     let song = {
@@ -88,8 +89,20 @@ drop_zone.on('drop', function (event) {
     let files = event.originalEvent.dataTransfer.files;
     if (files.length > 0){
         console.log('file selected: ', files[0])
-
+        let file = files[0];
+        $(this).text(file.name);
+        this.files = files; // create a attribute files in the drop-zone
+        this.setAttribute('custom','loren ipsum')
+        //TODO: Create validate type:
     }
     event.preventDefault();
     return false;
+}).each(function () {
+    let self = this;
+    this.files = null;
+    this.checkValidity = function () {
+        let regexp = $(self).attr('datatype');
+        return self.files !== null && self.files.type.match(regexp);
+    };
+
 });
