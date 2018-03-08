@@ -13,7 +13,7 @@ function unSetLoading(inputs) {
 
 $('.new-song-form').on('submit', function () {
 
-    let inputs = $('.new-song-form input');
+    let inputs = $('.new-song-form').find('input, .drop-zone');
     for (let i = 0;  i<inputs.length; i++){
         let input = inputs[i];
         if(input.checkValidity() === false){
@@ -24,16 +24,15 @@ $('.new-song-form').on('submit', function () {
     }
     let audio_file_input = $('#audio_file')[0];
     let audio_file = null;
-    console.log(audio_file_input);
-    if(audio_file_input.files.length > 0){
-        audio_file = audio_file_input.files[0];
+    if(audio_file_input.file !== null){
+        audio_file = audio_file_input.file;
         console.log(audio_file);
 
     }
     let cover_file_input = $('#cover_file')[0];
     let cover_file = null;
-    if (cover_file_input.files.length > 0){
-        cover_file = cover_file_input.files[0];
+    if (cover_file_input.file !== null){
+        cover_file = cover_file_input.file;
     }
 
     let song = {
@@ -50,6 +49,7 @@ $('.new-song-form').on('submit', function () {
         $("#artist").focus(); // show focus at artist textfield
         songsListManager.load();
         unSetLoading(inputs);
+        resetDropZone();
     }, function () {
         console.log("ERROR", arguments);
         unSetLoading(inputs);
@@ -91,7 +91,7 @@ drop_zone.on('drop', function (event) {
         console.log('file selected: ', files[0])
         let file = files[0];
         $(this).text(file.name);
-        this.files = files; // create a attribute files in the drop-zone
+        this.file = file; // create a attribute files in the drop-zone
         this.setAttribute('custom','loren ipsum')
         //TODO: Create validate type:
     }
@@ -99,10 +99,17 @@ drop_zone.on('drop', function (event) {
     return false;
 }).each(function () {
     let self = this;
-    this.files = null;
+    this.file = null;
+    this.validationMessage= 'Invalid file type';
     this.checkValidity = function () {
         let regexp = $(self).attr('datatype');
-        return self.files !== null && self.files.type.match(regexp);
+        let required = $(self).attr('required');
+        if (required === 'required'){
+            //TODO : create check a validate require drop zone and reset form
+            console.log('hey i am required');
+
+        }
+        return self.file !== null && self.file.type.match(regexp);
     };
 
 });

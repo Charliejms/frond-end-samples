@@ -11,7 +11,7 @@ var babel = require('gulp-babel');
 let run = require('gulp-run');
 
 gulp.task('run-server-python', function () {
-    return run('python server.py').exec();
+    //return run('python server.py').exec();
 });
 
  var serverJson = jsonServer.create({
