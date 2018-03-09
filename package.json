@@ -22,6 +22,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
     "gulp-buffer": "0.0.2",
+    "gulp-imagemin": "^4.1.0",
     "gulp-json-srv": "^1.2.0",
     "gulp-notify": "^3.2.0",
     "gulp-postcss": "^7.0.1",

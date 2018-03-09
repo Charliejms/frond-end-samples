@@ -13,8 +13,16 @@ let uglify = require('gulp-uglify-es').default;
 let postcss = require('gulp-postcss');
 let autoprefixer = require('autoprefixer');
 let cssnano = require('cssnano');
+let imagemin = require('gulp-imagemin');
 
-gulp.task('default', ['concat-js','compile-scss', 'copy-font'],function () {
+
+
+// variables
+//optimización de images de usuario. No es una opcion para produccion.
+let uploadedImages  = ['uploads/*.phg', 'uploads/*.jpg', 'uploads/*.gif', 'uploads/*.svg'];
+let assetImages = ['src/img/*.phg', 'src/img/*.jpg', 'src/img/*.gif', 'src/img/*.svg'];
+
+gulp.task('default', ['concat-js','compile-scss', 'copy-font', 'asset-images-optimizations'],function () {
     //start Browser sync
     browserSync.init({
         //server: './',
@@ -24,6 +32,8 @@ gulp.task('default', ['concat-js','compile-scss', 'copy-font'],function () {
     gulp.watch(sassFiles, ['compile-scss']);
     gulp.watch(htmlFiles).on('change', browserSync.reload);
     gulp.watch(jsFiles, ['concat-js']);
+    //optimize static images to prod
+    gulp.watch(assetImages, ['asset-images-optimizations']);
     run('python server.py').exec();
     //return gulp.src('db.json').pipe(serverJson.pipe());
 });
@@ -89,4 +99,20 @@ gulp.task('compile-scss', function () {
 gulp.task('copy-font', function () {
     gulp.src('node_modules/sassy-font-awesome/fonts/fontawesome-webfont.*')
         .pipe(gulp.dest('./dist/fonts/'))
+});
+
+
+
+gulp.task('uploaded-images-optimization', function () {
+    gulp.src(uploadedImages)
+        .pipe(imagemin())
+        .pipe(gulp.dest('./uploads/'))
+});
+
+// Asset optimization (for static images) to PROD
+// config quality to imagemin()
+gulp.task('asset-images-optimizations', function () {
+    gulp.src(assetImages)
+        .pipe(imagemin())
+        .pipe('./dist/img/');
 });
