@@ -49,7 +49,6 @@ $('.new-song-form').on('submit', function () {
         $("#artist").focus(); // show focus at artist textfield
         songsListManager.load();
         unSetLoading(inputs);
-        resetDropZone();
     }, function () {
         console.log("ERROR", arguments);
         unSetLoading(inputs);

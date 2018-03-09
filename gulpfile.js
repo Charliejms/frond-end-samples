@@ -1,44 +1,18 @@
-var gulp = require('gulp');
-var sass = require('gulp-ruby-sass');
+let gulp = require('gulp');
+let sass = require('gulp-ruby-sass');
 const sourcemaps = require('gulp-sourcemaps');
-var notify = require('gulp-notify');
-var browserSync = require('browser-sync').create();
-var browserify = require('browserify');
-var tap = require('gulp-tap');
-var buffer = require('gulp-buffer');
-var jsonServer = require("gulp-json-srv");
-var babel = require('gulp-babel');
+let notify = require('gulp-notify');
+let browserSync = require('browser-sync').create();
+let browserify = require('browserify');
+let tap = require('gulp-tap');
+let buffer = require('gulp-buffer');
+let jsonServer = require("gulp-json-srv");
+let babel = require('gulp-babel');
 let run = require('gulp-run');
-
-gulp.task('run-server-python', function () {
-    //return run('python server.py').exec();
-});
-
- var serverJson = jsonServer.create({
-     port: 3004,
-     baseUrl: '/api'
- });
-
-var jsFiles = ['src/js/*.js', 'src/js/**/*.js'];
-var jsDestFiles ='dist/js/';
-//Task concat JavaScript
-gulp.task('concat-js', function () {
-    gulp.src('src/js/app.js')
-        .pipe(babel()) // transpile js
-        .pipe(tap(function (file) { // allow ren code got each  selected file before file
-            file.contents = browserify(file.path).bundle(); // pass file to import the require elemen ts
-        }))
-        .pipe(buffer())// transform file in stream
-        .pipe(gulp.dest(jsDestFiles))
-        .pipe(notify({
-            title: 'Concat JS',
-            message:'Concatenated 🗣'
-        }))
-        .pipe(browserSync.stream())
-});
-
-var sassFiles ='src/scss/*.scss';
-var htmlFiles = '*.html';
+let uglify = require('gulp-uglify-es').default;
+let postcss = require('gulp-postcss');
+let autoprefixer = require('autoprefixer');
+let cssnano = require('cssnano');
 
 gulp.task('default', ['concat-js','compile-scss', 'copy-font'],function () {
     //start Browser sync
@@ -53,16 +27,56 @@ gulp.task('default', ['concat-js','compile-scss', 'copy-font'],function () {
     run('python server.py').exec();
     //return gulp.src('db.json').pipe(serverJson.pipe());
 });
+
+gulp.task('run-server-python', function () {
+    return run('python server.py').exec();
+});
+
+ var serverJson = jsonServer.create({
+     port: 3004,
+     baseUrl: '/api'
+ });
+
+var jsFiles = ['src/js/*.js', 'src/js/**/*.js'];
+var jsDestFiles ='dist/js/';
+//Task concat JavaScript
+gulp.task('concat-js', function () {
+    gulp.src('src/js/app.js')
+        .pipe(sourcemaps.init())
+        .pipe(tap(function (file) { // allow ren code got each  selected file before file
+            file.contents = browserify(file.path).bundle(); // pass file to import the require elemen ts
+        }))
+        .pipe(buffer())// transform file in stream
+        .pipe(babel()) // transpile js
+        .pipe(uglify()) // minifier JS
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(jsDestFiles))
+        .pipe(notify({
+            title: 'Concat JS',
+            message:'Concatenated 🗣'
+        }))
+        .pipe(browserSync.stream())
+});
+
+var sassFiles ='src/scss/*.scss';
+var htmlFiles = '*.html';
+
+
 // task SASS
+let cssFilesSource = 'src/scss/style.scss';
+let cssFileDest = './dist/css/';
 gulp.task('compile-scss', function () {
-    sass('src/scss/style.scss', { sourcemap: true})
-        .on('error', sass.logError) //Show error in SASS
-        // for inline sourcemaps
-        .pipe(sourcemaps.write())
+    sass('src/scss/style.scss', {
+        sourcemap: true}
+        ).on('error', sass.logError) //Show error in SASS
          // for file sourcemaps
+        .pipe(postcss([
+            autoprefixer(), // It will be faster, as the CSS is parsed only once for all PostCSS based tools
+            cssnano() // minifier css
+        ]))
         .pipe(sourcemaps.write('maps', {
-             includeContent: false,
-             sourceRoot: 'source'
+            includeContent: false,
+            sourceRoot: 'source'
         }))
         .pipe(gulp.dest('./dist/css/'))
         .pipe(notify({

@@ -14,17 +14,21 @@
     "sassy-font-awesome": "^1.0.1"
   },
   "devDependencies": {
+    "autoprefixer": "^8.1.0",
     "babel-core": "^6.26.0",
     "browser-sync": "^2.23.6",
     "browserify": "^16.1.0",
+    "cssnano": "^3.10.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
     "gulp-buffer": "0.0.2",
     "gulp-json-srv": "^1.2.0",
     "gulp-notify": "^3.2.0",
+    "gulp-postcss": "^7.0.1",
     "gulp-ruby-sass": "^3.0.0",
     "gulp-run": "^1.7.1",
     "gulp-sourcemaps": "^2.6.4",
-    "gulp-tap": "^1.0.1"
+    "gulp-tap": "^1.0.1",
+    "gulp-uglify-es": "^1.0.1"
   }
 }
