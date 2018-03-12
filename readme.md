@@ -3,6 +3,19 @@
 
 Simple template:
 using **GULP**
+ ### `task`
+ 
+ **Pre-install**
+ - Mac OS X: brew: 
+  
+    ``brew install graphicsmagick``
+ 
+ For create responsive and compression images: 
+ 
+    asset-images-optimizations
+   
+    uploaded-images-optimization
+ 
 
 ## Use Backend to learn Front-end (python)
 A REST sparring to learn and test front-end technologies by making HTTP requests.
