@@ -3,14 +3,14 @@
 
 Simple template:
 using **GULP**
- ### `task images`
+ ### `Task images`
  
  **Pre-install** For responsive images
  - Mac OS X -> brew: 
   
     ``brew install graphicsmagick``
  
- **Task**: For create responsive images  to use '<srcset =>'     
+ **Task**: For create responsive images  to use '<srcset =>'  [gulp-responsive-images](https://github.com/dcgauld/gulp-responsive-images)
                     
     gulp responsive-images
  
