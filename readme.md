@@ -3,19 +3,24 @@
 
 Simple template:
 using **GULP**
- ### `task`
+ ### `task images`
  
- **Pre-install**
- - Mac OS X: brew: 
+ **Pre-install** For responsive images
+ - Mac OS X -> brew: 
   
     ``brew install graphicsmagick``
  
- For create responsive and compression images: 
+ **Task**: For create responsive images  to use '<srcset =>'     
+                    
+    gulp responsive-images
  
-    asset-images-optimizations
+ **Task**: For create compression statics images, using  [gulp-imagemin](https://github.com/sindresorhus/gulp-imagemin)
+ 
+    gulp asset-images-optimizations
    
-    uploaded-images-optimization
- 
+  **Task**: For create sprite images, using  [gulp.spritesmith](https://github.com/twolfson/gulp.spritesmith)
+  
+     gulp sprite
 
 ## Use Backend to learn Front-end (python)
 A REST sparring to learn and test front-end technologies by making HTTP requests.

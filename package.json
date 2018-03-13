@@ -26,10 +26,12 @@
     "gulp-json-srv": "^1.2.0",
     "gulp-notify": "^3.2.0",
     "gulp-postcss": "^7.0.1",
+    "gulp-responsive-images": "0.0.3",
     "gulp-ruby-sass": "^3.0.0",
     "gulp-run": "^1.7.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-tap": "^1.0.1",
-    "gulp-uglify-es": "^1.0.1"
+    "gulp-uglify-es": "^1.0.1",
+    "gulp.spritesmith": "^6.9.0"
   }
 }

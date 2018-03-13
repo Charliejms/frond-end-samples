@@ -14,15 +14,28 @@ let postcss = require('gulp-postcss');
 let autoprefixer = require('autoprefixer');
 let cssnano = require('cssnano');
 let imagemin = require('gulp-imagemin');
+let spritesmith = require('gulp.spritesmith');
 
 
 
 // variables
-//optimización de images de usuario. No es una opcion para produccion.
-let uploadedImages  = ['uploads/*.phg', 'uploads/*.jpg', 'uploads/*.gif', 'uploads/*.svg'];
-let assetImages = ['src/img/*.phg', 'src/img/*.jpg', 'src/img/*.gif', 'src/img/*.svg'];
+let sassFiles ='src/scss/*.scss';
+let htmlFiles = '*.html';
+let jsFiles = [
+    'src/js/*.js',
+    'src/js/**/*.js'];
 
-gulp.task('default', ['concat-js','compile-scss', 'copy-font', 'asset-images-optimizations'],function () {
+//optimización de images de usuario. No es una opcion para produccion. (not necessary)
+let uploadedImages  = ['uploads/*.png', 'uploads/*.jpg', 'uploads/*.gif', 'uploads/*.svg'];
+
+let assetImages = [
+    'src/img/assets/*.png',
+    'src/img/assets/*.jpg',
+    'src/img/assets/*.gif',
+    'src/img/assets/*.svg'];
+let spriteDir = ['src/img/sprites/*'];
+
+gulp.task('default', ['concat-js','sprite','compile-scss', 'copy-font', 'asset-images-optimizations'],function () {
     //start Browser sync
     browserSync.init({
         //server: './',
@@ -34,7 +47,11 @@ gulp.task('default', ['concat-js','compile-scss', 'copy-font', 'asset-images-opt
     gulp.watch(jsFiles, ['concat-js']);
     //optimize static images to prod
     gulp.watch(assetImages, ['asset-images-optimizations']);
+    // watch change sprites Dir
+    gulp.watch(spriteDir, ['sprite']);
+    //Server python
     run('python server.py').exec();
+    //server node js
     //return gulp.src('db.json').pipe(serverJson.pipe());
 });
 
@@ -42,13 +59,13 @@ gulp.task('run-server-python', function () {
     return run('python server.py').exec();
 });
 
- var serverJson = jsonServer.create({
+ let serverJson = jsonServer.create({
      port: 3004,
      baseUrl: '/api'
  });
 
-var jsFiles = ['src/js/*.js', 'src/js/**/*.js'];
-var jsDestFiles ='dist/js/';
+
+let jsDestFiles ='dist/js/';
 //Task concat JavaScript
 gulp.task('concat-js', function () {
     gulp.src('src/js/app.js')
@@ -67,9 +84,6 @@ gulp.task('concat-js', function () {
         }))
         .pipe(browserSync.stream())
 });
-
-var sassFiles ='src/scss/*.scss';
-var htmlFiles = '*.html';
 
 
 // task SASS
@@ -102,6 +116,17 @@ gulp.task('copy-font', function () {
 });
 
 
+let imagesResponsiveDirs = ['src/img/*'];
+let responsive = require('gulp-responsive-images');
+gulp.task('responsive-images', function () {
+    gulp.dest(imagesResponsiveDirs).pipe(responsive({
+        '*.png': [
+            { width: 600, suffix: 'large'},
+            { width: 400, suffix: 'medium'},
+            { width: 200, suffix: 'small'}
+        ]
+    })).pipe(gulp.dest('src/min/'))
+});
 
 gulp.task('uploaded-images-optimization', function () {
     gulp.src(uploadedImages)
@@ -114,5 +139,18 @@ gulp.task('uploaded-images-optimization', function () {
 gulp.task('asset-images-optimizations', function () {
     gulp.src(assetImages)
         .pipe(imagemin())
-        .pipe('./dist/img/');
+        .pipe(gulp.dest('./dist/img/'));
+});
+
+//Create sprite images
+gulp.task('sprite', function () {
+    let spriteDate = gulp.src('src/img/sprites/*')
+        .pipe(spritesmith({
+            imgName: 'sprite.png',
+            cssName: '_sprite.scss',
+            imgPath: '../img/sprite.png'
+        }));
+    spriteDate.img.pipe(buffer()).pipe(imagemin()).pipe(gulp.dest('./dist/img/'));
+    spriteDate.css.pipe(gulp.dest('./src/scss/'));
+
 });

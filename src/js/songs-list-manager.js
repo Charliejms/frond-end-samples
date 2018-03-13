@@ -3,7 +3,7 @@ let utils = require('./utils');
 let apiClientSong = require('./api/song-api-client');
 
 const STATIC_FILES = {
-    cover_url: 'https://assets.capitalxtra.com/2017/49/lil-pump-instagram-7-1512392223-view-1.png',
+    cover_url: 'dist/img/cover_cd.png',
     audio_url: 'https://someurl.com'
 };
 
@@ -26,7 +26,7 @@ module.exports = {
                 let html =`    
                         <article class="song" data-id="${song_id}">
                             <img  class="cover" src="${cover_url}">
-                            <i class="delete-song" title="like song"></i>
+                            <i class="sprite delete-song" title="delete song"></i>
                             <div class="artist">${utils.scapeHTML(artist)}</div>
                             <div class="title">${utils.scapeHTML(title)}</div>
                         </article>`;

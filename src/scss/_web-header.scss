@@ -14,7 +14,8 @@ $web-header-color: $color-write;
     text-shadow: 2px 2px 0px darken($web-header-background, 30%);
   }
   .add-song{
-    @include _fa-icon(plus-circle);
+    @include sprite($plus);
+    zoom: 0.6;
     color: $color-write;
     font-size: x-large;
     float: right;
