@@ -1,4 +1,4 @@
-# Create template to Frond-end:
+# Template to Front-end develoment:
 
 
 Simple template:
