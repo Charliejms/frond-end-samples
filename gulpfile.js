@@ -1,22 +1,22 @@
-let gulp = require('gulp');
-let sass = require('gulp-ruby-sass');
+const gulp = require('gulp');
+const sass = require('gulp-ruby-sass');
 const sourcemaps = require('gulp-sourcemaps');
-let notify = require('gulp-notify');
-let browserSync = require('browser-sync').create();
-let browserify = require('browserify');
-let tap = require('gulp-tap');
-let buffer = require('gulp-buffer');
-let jsonServer = require("gulp-json-srv");
-let babel = require('gulp-babel');
-let run = require('gulp-run');
-let uglify = require('gulp-uglify-es').default;
-let postcss = require('gulp-postcss');
-let autoprefixer = require('autoprefixer');
-let cssnano = require('cssnano');
-let imagemin = require('gulp-imagemin');
-let spritesmith = require('gulp.spritesmith');
+const notify = require('gulp-notify');
+const browserSync = require('browser-sync').create();
+const browserify = require('browserify');
+const tap = require('gulp-tap');
+const buffer = require('gulp-buffer');
+const jsonServer = require("gulp-json-srv");
+const babel = require('gulp-babel');
+const run = require('gulp-run');
+const uglify = require('gulp-uglify-es').default;
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
+const imagemin = require('gulp-imagemin');
+const spritesmith = require('gulp.spritesmith');
 
-
+//TODO: Update gulpfile for  gist
 
 // variables
 let sassFiles ='src/scss/*.scss';
