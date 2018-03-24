@@ -76,7 +76,8 @@ const spriteConfig = {
 let uploadedImages  = ['uploads/*.png', 'uploads/*.jpg', 'uploads/*.gif', 'uploads/*.svg'];
 let assetImgConfig = {
     in: ['src/img/assets/*.png', 'src/img/assets/*.jpg', 'src/img/assets/*.gif', 'src/img/assets/*.svg'],
-    out: './dist/img/'
+    out: './dist/img/',
+    watch: 'src/img/assets/*'
 };
 
 // task SASS
@@ -184,7 +185,7 @@ gulp.task('default', ['concat-js','sprite','compile-scss', 'copy-font', 'asset-i
     gulp.watch(htmlFiles).on('change', browserSync.reload);
     gulp.watch(jsConfig.watch, ['concat-js']);
     //optimize static images to prod
-    gulp.watch(assetImages, ['asset-images-optimizations']);
+    gulp.watch(assetImgConfig.watch, ['asset-images-optimizations']);
     // watch change sprites Dir
     gulp.watch(sassConfig.watch, ['sprite']);
     //Server python
