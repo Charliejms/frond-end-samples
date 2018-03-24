@@ -74,8 +74,10 @@ const spriteConfig = {
 
 //optimización de images de usuario. No es una opcion para produccion. (not necessary)
 let uploadedImages  = ['uploads/*.png', 'uploads/*.jpg', 'uploads/*.gif', 'uploads/*.svg'];
-let assetImages = ['src/img/assets/*.png', 'src/img/assets/*.jpg', 'src/img/assets/*.gif', 'src/img/assets/*.svg'];
-
+let assetImgConfig = {
+    in: ['src/img/assets/*.png', 'src/img/assets/*.jpg', 'src/img/assets/*.gif', 'src/img/assets/*.svg'],
+    out: './dist/img/'
+};
 
 // task SASS
 gulp.task('compile-scss', function () {
@@ -143,9 +145,9 @@ gulp.task('uploaded-images-optimization', function () {
 
 // Asset optimization (for static images) to PROD
 gulp.task('asset-images-optimizations', function () {
-    gulp.src(assetImages)
+    gulp.src(assetImgConfig.in)
         .pipe(imagemin())
-        .pipe(gulp.dest('./dist/img/'));
+        .pipe(gulp.dest(assetImgConfig.out));
 });
 
 //Create sprite images
