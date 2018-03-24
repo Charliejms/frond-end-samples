@@ -1,24 +1,40 @@
 # Template to Front-end develoment:
 
 
+## Run Project:
+
+ Install: 
+ 
+ ``npm i``
+ 
+ ### `gulp`
+
 Simple template:
 using **GULP**
  ### `Task images`
  
- **Pre-install** For responsive images
+ **Pre-install** 
+ 
+ For responsive images
  - Mac OS X -> brew: 
   
     ``brew install graphicsmagick``
  
- **Task**: For create responsive images  to use '<srcset =>'  [gulp-responsive-images](https://github.com/dcgauld/gulp-responsive-images)
+ **Task**: 
+ 
+ For create responsive images  to use '<srcset =>'  [gulp-responsive-images](https://github.com/dcgauld/gulp-responsive-images)
                     
     gulp responsive-images
  
- **Task**: For create compression statics images, using  [gulp-imagemin](https://github.com/sindresorhus/gulp-imagemin)
+ **Task**: 
+ 
+ For create compression statics images, using  [gulp-imagemin](https://github.com/sindresorhus/gulp-imagemin)
  
     gulp asset-images-optimizations
    
-  **Task**: For create sprite images, using  [gulp.spritesmith](https://github.com/twolfson/gulp.spritesmith)
+  **Task**: 
+  
+  For create sprite images, using  [gulp.spritesmith](https://github.com/twolfson/gulp.spritesmith)
   
      gulp sprite
 
@@ -40,7 +56,7 @@ When you upload a file, the file will be accessible from path
  
  using : [gulp-run](https://www.npmjs.com/package/gulp-run)
  ```javascript
-    let run = require('gulp-run');
+    const run = require('gulp-run');
     gulp.task('run-server-python', function () {
         return run('python server.py').exec();
     });
