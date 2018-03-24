@@ -14,86 +14,72 @@ const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const imagemin = require('gulp-imagemin');
+const responsive = require('gulp-responsive-images');
 const spritesmith = require('gulp.spritesmith');
 
-//TODO: Update gulpfile for  gist
 
-// variables
-let sassFiles ='src/scss/*.scss';
-let htmlFiles = '*.html';
-let jsFiles = [
-    'src/js/*.js',
-    'src/js/**/*.js'];
+// variables:
+const htmlFiles = '*.html';
+// SASS Config
+const sassConfig = {
+    in: 'src/scss/style.scss',
+    out: './dist/css/',
+    watch: 'src/scss/**/*',
+    sourcemaps: 'maps',
+};
+//JS Config
+const jsConfig = {
+    in: 'src/js/app.js',
+    out: 'dist/js/',
+    watch: ['src/js/*.js', 'src/js/**/*.js'],
+    sourcemaps: './',
+};
+// Fonts Config
+const fontAwesomeConfig = {
+    in: 'node_modules/sassy-font-awesome/fonts/fontawesome-webfont.*',
+    out: './dist/fonts/'
+};
+// IMG
+// Config images responsive
+const imgConfig = {
+    in : ['src/img/*', 'src/img/**/*'],
+    out: 'dist/img/',
+    watch: ['src/img/*', 'src/img/**/*'],
+    responsiveOpts : {
+        "assets/*": [
+            { width: 375, rename: { suffix: '-xs' }, withoutEnlargement:false, skipOnEnlargement: true },
+            { width: 768, rename: { suffix: '-sm' }, withoutEnlargement:false, skipOnEnlargement: true },
+            { width: 1024, rename: { suffix: '-md' }, withoutEnlargement:false, skipOnEnlargement: true },
+            { width: 1200, rename: { suffix: '-lg' }, withoutEnlargement:false, skipOnEnlargement: true },
+            { width: 1536, rename: { suffix: '-@2x' }, withoutEnlargement:false, skipOnEnlargement: true },
+            { width: 2048, rename: { suffix: '-@3x' }, withoutEnlargement:false, skipOnEnlargement: true }
+        ],
+        "avatars/*": [
+            { width: 35, height:35, withoutEnlargement:false, skipOnEnlargement: true },
+            { width: 70, height:70, rename: { suffix: '@2x' }, withoutEnlargement:false, skipOnEnlargement: true },
+            { width: 105, height:105, rename: { suffix: '@3x' }, withoutEnlargement:false, skipOnEnlargement: true },
+        ]
+    },
+};
+// Sprites config
+const spriteConfig = {
+    in: 'src/img/sprites/*',
+    watch : 'src/img/sprites/*',
+    outImg: './dist/img/',
+    outSass:'./src/scss/',
+    nameSprite: 'sprite.png',
+    scssSprite: '_sprite.scss',
+    imgPathSprite: '../img/sprite.png'
+};
 
 //optimización de images de usuario. No es una opcion para produccion. (not necessary)
 let uploadedImages  = ['uploads/*.png', 'uploads/*.jpg', 'uploads/*.gif', 'uploads/*.svg'];
-
-let assetImages = [
-    'src/img/assets/*.png',
-    'src/img/assets/*.jpg',
-    'src/img/assets/*.gif',
-    'src/img/assets/*.svg'];
-let spriteDir = ['src/img/sprites/*'];
-
-gulp.task('default', ['concat-js','sprite','compile-scss', 'copy-font', 'asset-images-optimizations'],function () {
-    //start Browser sync
-    browserSync.init({
-        //server: './',
-        proxy: "127.0.0.1:8000",
-        browser: "google chrome"
-    });
-    gulp.watch(sassFiles, ['compile-scss']);
-    gulp.watch(htmlFiles).on('change', browserSync.reload);
-    gulp.watch(jsFiles, ['concat-js']);
-    //optimize static images to prod
-    gulp.watch(assetImages, ['asset-images-optimizations']);
-    // watch change sprites Dir
-    gulp.watch(spriteDir, ['sprite']);
-    //Server python
-    run('python server.py').exec();
-    //server node js
-    //return gulp.src('db.json').pipe(serverJson.pipe());
-});
-
-gulp.task('run-server-python', function () {
-    return run('python server.py').exec();
-});
-
- let serverJson = jsonServer.create({
-     port: 3004,
-     baseUrl: '/api'
- });
-
-
-let jsDestFiles ='dist/js/';
-//Task concat JavaScript
-gulp.task('concat-js', function () {
-    gulp.src('src/js/app.js')
-        .pipe(sourcemaps.init())
-        .pipe(tap(function (file) { // allow ren code got each  selected file before file
-            file.contents = browserify(file.path).bundle(); // pass file to import the require elemen ts
-        }))
-        .pipe(buffer())// transform file in stream
-        .pipe(babel()) // transpile js
-        .pipe(uglify()) // minifier JS
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(jsDestFiles))
-        .pipe(notify({
-            title: 'Concat JS',
-            message:'Concatenated 🗣'
-        }))
-        .pipe(browserSync.stream())
-});
+let assetImages = ['src/img/assets/*.png', 'src/img/assets/*.jpg', 'src/img/assets/*.gif', 'src/img/assets/*.svg'];
 
 
 // task SASS
-let cssFilesSource = 'src/scss/style.scss';
-let cssFileDest = './dist/css/';
 gulp.task('compile-scss', function () {
-    sass('src/scss/style.scss', {
-        sourcemap: true}
-        ).on('error', sass.logError) //Show error in SASS
-         // for file sourcemaps
+    sass(sassConfig.in,).on('error', sass.logError) //Show error in SASS
         .pipe(postcss([
             autoprefixer(), // It will be faster, as the CSS is parsed only once for all PostCSS based tools
             cssnano() // minifier css
@@ -102,30 +88,51 @@ gulp.task('compile-scss', function () {
             includeContent: false,
             sourceRoot: 'source'
         }))
-        .pipe(gulp.dest('./dist/css/'))
+        .pipe(gulp.dest(sassConfig.out))
         .pipe(notify({
             title: 'SASS',
             message:'Compiled 🤟🏽'
         }))
         .pipe(browserSync.stream())
 });
-// Import Font Awesome
-gulp.task('copy-font', function () {
-    gulp.src('node_modules/sassy-font-awesome/fonts/fontawesome-webfont.*')
-        .pipe(gulp.dest('./dist/fonts/'))
+
+//Task concat JavaScript
+gulp.task('concat-js', function () {
+    gulp.src(jsConfig.in)
+        .pipe(sourcemaps.init())
+        .pipe(tap(function (file) { // allow ren code got each  selected file before file
+            file.contents = browserify(file.path).bundle(); // pass file to import the require elemen ts
+        }))
+        .pipe(buffer())// transform file in stream
+        .pipe(babel()) // transpile js
+        .pipe(uglify()) // minifier JS
+        .pipe(sourcemaps.write(jsConfig.sourcemaps))
+        .pipe(gulp.dest(jsConfig.out))
+        .pipe(notify({
+            title: 'Concat JS',
+            message:'Concatenated 🗣'
+        }))
+        .pipe(browserSync.stream())
 });
 
+// Import Font Awesome
+gulp.task('copy-font', function () {
+    gulp.src(fontAwesomeConfig.in)
+        .pipe(gulp.dest(fontAwesomeConfig.out))
+        .pipe(notify({
+            title: "Fonts",
+            message: "Fonts moved 🤘"
+    }));
+});
 
-let imagesResponsiveDirs = ['src/img/*'];
-let responsive = require('gulp-responsive-images');
+// Task Responsive img
+// config quality to imagemin()
+
 gulp.task('responsive-images', function () {
-    gulp.dest(imagesResponsiveDirs).pipe(responsive({
-        '*.png': [
-            { width: 600, suffix: 'large'},
-            { width: 400, suffix: 'medium'},
-            { width: 200, suffix: 'small'}
-        ]
-    })).pipe(gulp.dest('src/min/'))
+    gulp.src(imgConfig.in)
+        .pipe(responsive(imgConfig.responsiveOpts))
+        .pipe(imagemin())
+        .pipe(gulp.dest(imgConfig.out))
 });
 
 gulp.task('uploaded-images-optimization', function () {
@@ -135,7 +142,6 @@ gulp.task('uploaded-images-optimization', function () {
 });
 
 // Asset optimization (for static images) to PROD
-// config quality to imagemin()
 gulp.task('asset-images-optimizations', function () {
     gulp.src(assetImages)
         .pipe(imagemin())
@@ -144,13 +150,43 @@ gulp.task('asset-images-optimizations', function () {
 
 //Create sprite images
 gulp.task('sprite', function () {
-    let spriteDate = gulp.src('src/img/sprites/*')
+    let spriteDate = gulp.src(spriteConfig.in)
         .pipe(spritesmith({
-            imgName: 'sprite.png',
-            cssName: '_sprite.scss',
-            imgPath: '../img/sprite.png'
+            imgName: spriteConfig.nameSprite,
+            cssName: spriteConfig.scssSprite,
+            imgPath: spriteConfig.imgPathSprite
         }));
-    spriteDate.img.pipe(buffer()).pipe(imagemin()).pipe(gulp.dest('./dist/img/'));
-    spriteDate.css.pipe(gulp.dest('./src/scss/'));
+    spriteDate.img.pipe(buffer()).pipe(imagemin()).pipe(gulp.dest(spriteConfig.outImg));
+    spriteDate.css.pipe(gulp.dest(spriteConfig.outSass));
+});
 
+// Server
+gulp.task('run-server-python', function () {
+    return run('python server.py').exec();
+});
+
+let serverJson = jsonServer.create({
+    port: 3004,
+    baseUrl: '/api'
+});
+
+// default task
+gulp.task('default', ['concat-js','sprite','compile-scss', 'copy-font', 'asset-images-optimizations'],function () {
+    //start Browser sync
+    browserSync.init({
+        //server: './',
+        proxy: "127.0.0.1:8000",
+        browser: "google chrome"
+    });
+    gulp.watch(sassConfig.watch, ['compile-scss']);
+    gulp.watch(htmlFiles).on('change', browserSync.reload);
+    gulp.watch(jsConfig.watch, ['concat-js']);
+    //optimize static images to prod
+    gulp.watch(assetImages, ['asset-images-optimizations']);
+    // watch change sprites Dir
+    gulp.watch(sassConfig.watch, ['sprite']);
+    //Server python
+    run('python server.py').exec();
+    //server node js
+    //return gulp.src('db.json').pipe(serverJson.pipe());
 });
