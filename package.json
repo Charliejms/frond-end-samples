@@ -16,6 +16,8 @@
   "devDependencies": {
     "autoprefixer": "^8.1.0",
     "babel-core": "^6.26.0",
+    "bootstrap": "^4.0.0",
+    "bootstrap-sass": "^3.3.7",
     "browser-sync": "^2.23.6",
     "browserify": "^16.1.0",
     "cssnano": "^3.10.0",
@@ -27,8 +29,8 @@
     "gulp-notify": "^3.2.0",
     "gulp-postcss": "^7.0.1",
     "gulp-responsive-images": "0.0.3",
-    "gulp-ruby-sass": "^3.0.0",
     "gulp-run": "^1.7.1",
+    "gulp-sass": "^3.2.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-tap": "^1.0.1",
     "gulp-uglify-es": "^1.0.1",

@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const sass = require('gulp-ruby-sass');
+const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const notify = require('gulp-notify');
 const browserSync = require('browser-sync').create();
@@ -20,12 +20,25 @@ const spritesmith = require('gulp.spritesmith');
 
 // variables:
 const htmlFiles = '*.html';
+
+// bootstrap Config
+const bootstrapConfig = {
+    in: './node_modules/bootstrap-sass/assets/stylesheets',
+    inFont: "./node_modules/bootstrap-sass/assets/fonts/**/*",
+    out: './dist/fonts/'
+};
 // SASS Config
 const sassConfig = {
     in: 'src/scss/style.scss',
     out: './dist/css/',
     watch: 'src/scss/**/*',
-    sourcemaps: 'maps',
+    sourcemaps: './',
+    sassOpt:{
+        outputStyle: 'nested', //'compressed'
+        precision: 3,
+        errLogToConsole: true,
+        includePaths: [bootstrapConfig.in]//can find files when using the @import directive.
+    }
 };
 //JS Config
 const jsConfig = {
@@ -36,9 +49,10 @@ const jsConfig = {
 };
 // Fonts Config
 const fontAwesomeConfig = {
-    in: 'node_modules/sassy-font-awesome/fonts/fontawesome-webfont.*',
+    in: ["node_modules/sassy-font-awesome/fonts/fontawesome-webfont.*", bootstrapConfig.inFont],
     out: './dist/fonts/'
 };
+
 // IMG
 // Config images responsive
 const imgConfig = {
@@ -82,7 +96,8 @@ let assetImgConfig = {
 
 // task SASS
 gulp.task('compile-scss', function () {
-    sass(sassConfig.in,).on('error', sass.logError) //Show error in SASS
+    gulp.src(sassConfig.in)
+        .pipe(sass(sassConfig.sassOpt).on('error', sass.logError)) //Show error in SASS
         .pipe(postcss([
             autoprefixer(), // It will be faster, as the CSS is parsed only once for all PostCSS based tools
             cssnano() // minifier css
